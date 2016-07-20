@@ -3,6 +3,7 @@ package game;
 
 import game.players.Alien;
 import game.players.Ninja;
+import game.util.Statistics;
 
 
 public class NVA {
@@ -106,6 +107,8 @@ public class NVA {
 
     public void startBattle() {
 
+        Statistics stats = new Statistics();  //w2d3
+
         int startHealth = 1000; //homework
         int turnTracker = 0; //homework
 
@@ -147,7 +150,7 @@ public class NVA {
 
             alienLastHit = alienCurrentHit;//homework
             alienCurrentHit = alienDamageReceived;//homework
-            System.out.println("alien average hit: " + (alienLastHit + alienCurrentHit / 2)); //homework
+
 
             System.out.println(ninja.getPlayerName() + " attacks with the " + ninja.getPlayerWeapon() + " and deals " + alienDamageReceived + " points of damage.");
             {
@@ -156,9 +159,11 @@ public class NVA {
 
                 ninjaLastHit = ninjaCurrentHit;//homework
                 ninjaCurrentHit = ninjaDamageReceived;//homework
-                System.out.println("ninja average hit: " + (ninjaLastHit + ninjaCurrentHit / 2)); //homework
+
+
 
                 System.out.println(alien.getPlayerName() + " attacks with the " + alien.getPlayerWeapon() + " and deals " + ninjaDamageReceived + " points of damage.");
+                stats.recordAttack(alienDamageReceived, ninjaDamageReceived); //w2d3
 
                 System.out.println(ninja.getPlayerName() + " Heath: " + ninja.getHealth() + "  vs  " + alien.getPlayerName() + " Health: " + alien.getHealth());
                 System.out.println(" ");
@@ -183,10 +188,9 @@ public class NVA {
             }
 
                 ++turnTracker;
-                System.out.println("Turn Tracker: " + turnTracker);//homework
 
-                System.out.println("The alien Total Damage is: " + (startHealth - alien.getHealth()));//homework
-                System.out.println("The ninja Total Damage is: " + (startHealth - ninja.getHealth()));//homework
+
+
 
                 System.out.println("Press [enter] to take another turn.");
 
@@ -210,6 +214,20 @@ public class NVA {
                 System.out.println("Everyone Died!!!");
                 System.out.println(ninja.getPlayerName() + " and " + alien.getPlayerName() + " both lose.");
             }
+            System.out.println("**********************************************");
+            System.out.println("Turn Tracker: " + turnTracker);//homework
+//            System.out.println("ninja average hit: " + ((ninjaLastHit + ninjaCurrentHit) / 2.0)); //homework
+//            System.out.println("alien average hit: " + ((alienLastHit + alienCurrentHit)/2.0)); //homework
+//            System.out.println("The alien Total Damage is: " + (startHealth - alien.getHealth()));//homework
+//            System.out.println("The ninja Total Damage is: " + (startHealth - ninja.getHealth()));//homework
+
+            System.out.println("Total attacks: " + stats.getTotalAttacks());
+            System.out.println("Total ties: "+stats.getTies());
+            System.out.println("Total wins by Ninja: "+stats.getNinjaWins());
+
+            System.out.println("Total wins by Alien: "+stats.getAlienWins());
+            System.out.println("Total average damage dealt by Ninja: "+stats.getNinjaAverageDamageDealt());
+            System.out.println("Total average damage dealt by Alien: "+stats.getAlienAverageDamageDealt());
             System.out.println("**********************************************");
         }
 
